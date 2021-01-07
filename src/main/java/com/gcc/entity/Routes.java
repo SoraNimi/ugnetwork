@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * (Routes)实体类
+ * (Routes)Entity class
  *
  * @author an yushi
  * @since 2021-01-03 20:29:07

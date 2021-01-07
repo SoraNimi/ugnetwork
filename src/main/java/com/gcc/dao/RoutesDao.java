@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * (Routes)表数据库访问层
+ * (Routes)Table database access layer
  *
  * @author an yushi
  * @since 2020-12-10 09:57:43
@@ -17,68 +17,68 @@ import java.util.List;
 public interface RoutesDao {
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param routeId 主键
-     * @return 实例对象
+     * @param routeId Primary Key
+     * @return Instance object
      */
     Routes queryById(Integer routeId);
 
     /**
-     * 查询指定行数据
+     * Query specified row data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     List<Routes> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
-     * 通过实体作为筛选条件查询
+     * Query by entity as a filter
      *
-     * @param routes 实例对象
-     * @return 对象列表
+     * @param routes Instance object
+     * @return Object list
      */
     List<Routes> queryAll(Routes routes);
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param routes 实例对象
-     * @return 影响行数
+     * @param routes Instance object
+     * @return Number of affected rows
      */
     int insert(Routes routes);
 
     /**
-     * 批量新增数据（MyBatis原生foreach方法）
+     * Add data in batches (MyBatis native foreach method)
      *
-     * @param entities List<Routes> 实例对象列表
-     * @return 影响行数
+     * @param entities List<Routes> Instance object列表
+     * @return Number of affected rows
      */
     int insertBatch(@Param("entities") List<Routes> entities);
 
     /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
+     * Add batches or update data by Primary Key (MyBatis native foreach method)
      *
-     * @param entities List<Routes> 实例对象列表
-     * @return 影响行数
+     * @param entities List<Routes> Instance object列表
+     * @return Number of affected rows
      */
     int insertOrUpdateBatch(@Param("entities") List<Routes> entities);
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param routes 实例对象
-     * @return 影响行数
+     * @param routes Instance object
+     * @return Number of affected rows
      */
     int update(Routes routes);
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param routeId 主键
-     * @return 影响行数
+     * @param routeId Primary Key
+     * @return Number of affected rows
      */
     int deleteById(Integer routeId);
 

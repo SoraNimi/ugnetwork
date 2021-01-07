@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 /**
- * (Lines)表数据库访问层
+ * (Lines)Table database access layer
  *
  * @author an yushi
  * @since 2020-12-10 09:56:17
@@ -17,68 +17,68 @@ import java.util.List;
 public interface LinesDao {
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param lineId 主键
-     * @return 实例对象
+     * @param lineId Primary Key
+     * @return Instance object
      */
     Lines queryById(Integer lineId);
 
     /**
-     * 查询指定行数据
+     * Query specified row data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     List<Lines> queryAllByLimit(@Param("offset") int offset, @Param("limit") int limit);
 
 
     /**
-     * 通过实体作为筛选条件查询
+     * Query by entity as a filter
      *
-     * @param lines 实例对象
-     * @return 对象列表
+     * @param lines Instance object
+     * @return Object list
      */
     List<Lines> queryAll(Lines lines);
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param lines 实例对象
-     * @return 影响行数
+     * @param lines Instance object
+     * @return Number of affected rows
      */
     int insert(Lines lines);
 
     /**
-     * 批量新增数据（MyBatis原生foreach方法）
+     * Add data in batches (MyBatis native foreach method)
      *
-     * @param entities List<Lines> 实例对象列表
-     * @return 影响行数
+     * @param entities List<Lines> Instance object列表
+     * @return Number of affected rows
      */
     int insertBatch(@Param("entities") List<Lines> entities);
 
     /**
-     * 批量新增或按主键更新数据（MyBatis原生foreach方法）
+     * Add batches or update data by Primary Key (MyBatis native foreach method)
      *
-     * @param entities List<Lines> 实例对象列表
-     * @return 影响行数
+     * @param entities List<Lines> Instance object列表
+     * @return Number of affected rows
      */
     int insertOrUpdateBatch(@Param("entities") List<Lines> entities);
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param lines 实例对象
-     * @return 影响行数
+     * @param lines Instance object
+     * @return Number of affected rows
      */
     int update(Lines lines);
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param lineId 主键
-     * @return 影响行数
+     * @param lineId Primary Key
+     * @return Number of affected rows
      */
     int deleteById(Integer lineId);
 

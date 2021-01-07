@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * (Steps)实体类
+ * (Steps)Entity class
  *MD5Util
  * @author an yushi
  * @since 2020-12-10 16:00:47

@@ -13,13 +13,13 @@ public class RedisService {
 	JedisPool jedisPool;
 	
 	/**
-	 * 获取当个对象
+	 * Get the object
 	 * */
 	public <T> T get(KeyPrefix prefix, String key,  Class<T> clazz) {
 		 Jedis jedis = null;
 		 try {
 			 jedis =  jedisPool.getResource();
-			 //生成真正的key
+			 //Generate real key
 			 String realKey  = prefix.getPrefix() + key;
 			 String  str = jedis.get(realKey);
 			 T t =  stringToBean(str, clazz);
@@ -30,7 +30,7 @@ public class RedisService {
 	}
 	
 	/**
-	 * 设置对象
+	 * Set object
 	 * */
 	public <T> boolean set(KeyPrefix prefix, String key,  T value) {
 		 Jedis jedis = null;
@@ -40,7 +40,7 @@ public class RedisService {
 			 if(str == null || str.length() <= 0) {
 				 return false;
 			 }
-			//生成真正的key
+			//Generate real key
 			 String realKey  = prefix.getPrefix() + key;
 			 int seconds =  prefix.expireSeconds();
 			 if(seconds <= 0) {
@@ -55,13 +55,13 @@ public class RedisService {
 	}
 	
 	/**
-	 * 判断key是否存在
+	 * Determine whether the key exists
 	 * */
 	public <T> boolean exists(KeyPrefix prefix, String key) {
 		 Jedis jedis = null;
 		 try {
 			 jedis =  jedisPool.getResource();
-			//生成真正的key
+			//Generate real key
 			 String realKey  = prefix.getPrefix() + key;
 			return  jedis.exists(realKey);
 		 }finally {
@@ -70,13 +70,13 @@ public class RedisService {
 	}
 	
 	/**
-	 * 增加值
+	 * Value Added
 	 * */
 	public <T> Long incr(KeyPrefix prefix, String key) {
 		 Jedis jedis = null;
 		 try {
 			 jedis =  jedisPool.getResource();
-			//生成真正的key
+			//Generate real key
 			 String realKey  = prefix.getPrefix() + key;
 			return  jedis.incr(realKey);
 		 }finally {
@@ -85,13 +85,13 @@ public class RedisService {
 	}
 	
 	/**
-	 * 减少值
+	 * Decrease value
 	 * */
 	public <T> Long decr(KeyPrefix prefix, String key) {
 		 Jedis jedis = null;
 		 try {
 			 jedis =  jedisPool.getResource();
-			//生成真正的key
+			//Generate real key
 			 String realKey  = prefix.getPrefix() + key;
 			return  jedis.decr(realKey);
 		 }finally {

@@ -12,7 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * (Lines)表服务实现类
+ * (Lines)Table service implementation class
  *
  * @author an yushi
  * @since 2020-12-10 09:56:20
@@ -30,31 +30,31 @@ public class LinesService  {
 
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param lineId 主键
-     * @return 实例对象
+     * @param lineId Primary Key
+     * @return Instance object
      */
     public Lines queryById(Integer lineId) {
         return this.linesDao.queryById(lineId);
     }
 
     /**
-     * 查询多条数据
+     * Query multiple data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     public List<Lines> queryAllByLimit(int offset, int limit) {
         return this.linesDao.queryAllByLimit(offset, limit);
     }
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param lines 实例对象
-     * @return 实例对象
+     * @param lineVO Instance object
+     * @return Instance object
      */
     public Lines insert(LineVO lineVO) {
         Lines lines = new Lines();
@@ -68,10 +68,10 @@ public class LinesService  {
     }
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param lines 实例对象
-     * @return 实例对象
+     * @param lines Instance object
+     * @return Instance object
      */
     public Lines update(Lines lines) {
         this.linesDao.update(lines);
@@ -79,10 +79,10 @@ public class LinesService  {
     }
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param lineId 主键
-     * @return 是否成功
+     * @param lineId Primary Key
+     * @return boolean
      */
     public boolean deleteById(Integer lineId) {
         stepsService.deleteByLineId(lineId);

@@ -4,7 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * (Citys)实体类
+ * (Citys)Entity class
  *
  * @author an yushi
  * @since 2020-12-10 09:57:10

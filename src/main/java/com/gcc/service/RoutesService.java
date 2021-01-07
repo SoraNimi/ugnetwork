@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * (Routes)表服务实现类
+ * (Routes)Table service implementation class
  *
  * @author an yushi
  * @since 2020-12-10 09:57:46
@@ -33,31 +33,31 @@ public class RoutesService {
 
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param routeId 主键
-     * @return 实例对象
+     * @param routeId Primary Key
+     * @return Instance object
      */
     public Routes queryById(Integer routeId) {
         return this.routesDao.queryById(routeId);
     }
 
     /**
-     * 查询多条数据
+     * Query multiple data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     public List<Routes> queryAllByLimit(int offset, int limit) {
         return this.routesDao.queryAllByLimit(offset, limit);
     }
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param routes 实例对象
-     * @return 实例对象
+     * @param routes Instance object
+     * @return Instance object
      */
     public Routes insert(Routes routes) {
         this.routesDao.insert(routes);
@@ -65,10 +65,10 @@ public class RoutesService {
     }
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param routes 实例对象
-     * @return 实例对象
+     * @param routes Instance object
+     * @return Instance object
      */
     public Routes update(Routes routes) {
         this.routesDao.update(routes);
@@ -76,10 +76,10 @@ public class RoutesService {
     }
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param routeId 主键
-     * @return 是否成功
+     * @param routeId Primary Key
+     * @return boolean
      */
     public boolean deleteById(Integer routeId) {
         return this.routesDao.deleteById(routeId) > 0;

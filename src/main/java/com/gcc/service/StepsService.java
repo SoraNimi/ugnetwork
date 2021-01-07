@@ -15,7 +15,7 @@ import java.sql.Time;
 import java.util.List;
 
 /**
- * (Steps)表服务实现类
+ * (Steps)Table service implementation class
  *
  * @author an yushi
  * @since 2020-12-10 09:58:16
@@ -32,31 +32,31 @@ public class StepsService {
     private CitysDao citysDao;
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param stepId 主键
-     * @return 实例对象
+     * @param stepId Primary Key
+     * @return Instance object
      */
     public Steps queryById(Integer stepId) {
         return this.stepsDao.queryById(stepId);
     }
 
     /**
-     * 查询多条数据
+     * Query multiple data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     public List<Steps> queryAllByLimit(int offset, int limit) {
         return this.stepsDao.queryAllByLimit(offset, limit);
     }
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param steps 实例对象
-     * @return 实例对象
+     * @param steps Instance object
+     * @return Instance object
      */
     public Steps insert(Steps steps) {
         this.stepsDao.insert(steps);
@@ -64,10 +64,10 @@ public class StepsService {
     }
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param steps 实例对象
-     * @return 实例对象
+     * @param steps Instance object
+     * @return Instance object
      */
     public Steps update(Steps steps) {
         this.stepsDao.update(steps);
@@ -75,10 +75,10 @@ public class StepsService {
     }
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param stepId 主键
-     * @return 是否成功
+     * @param stepId Primary Key
+     * @return boolean
      */
     public boolean deleteById(Integer stepId) {
         return this.stepsDao.deleteById(stepId) > 0;
@@ -122,10 +122,10 @@ public class StepsService {
     }
 
     /**
-     * 通过lineId删除数据
+     * delete by lineId
      *
-     * @param stepId 主键
-     * @return 是否成功
+     * @param lineId Primary Key
+     * @return boolean
      */
     public boolean deleteByLineId(Integer lineId) {
         return this.stepsDao.deleteByLineId(lineId) > 0;

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * (Citys)表服务实现类
+ * (Citys)Table service implementation class
  *
  * @author an yushi
  * @since 2020-12-10 09:57:15
@@ -21,31 +21,31 @@ public class CitysService {
     private CitysDao citysDao;
 
     /**
-     * 通过ID查询单条数据
+     * Query a single piece of data by ID
      *
-     * @param cityId 主键
-     * @return 实例对象
+     * @param cityId Primary Key
+     * @return Instance object
      */
     public Citys queryById(Integer cityId) {
         return this.citysDao.queryById(cityId);
     }
 
     /**
-     * 查询多条数据
+     * Query multiple data
      *
-     * @param offset 查询起始位置
-     * @param limit  查询条数
-     * @return 对象列表
+     * @param offset Query start position
+     * @param limit  Number of queries
+     * @return Object list
      */
     public List<Citys> queryAllByLimit(int offset, int limit) {
         return this.citysDao.queryAllByLimit(offset, limit);
     }
 
     /**
-     * 新增数据
+     * Add data
      *
-     * @param citys 实例对象
-     * @return 实例对象
+     * @param citys Instance object
+     * @return Instance object
      */
     public Citys insert(Citys citys) {
         this.citysDao.insert(citys);
@@ -53,10 +53,10 @@ public class CitysService {
     }
 
     /**
-     * 修改数据
+     * change the data
      *
-     * @param citys 实例对象
-     * @return 实例对象
+     * @param citys Instance object
+     * @return Instance object
      */
     public Citys update(Citys citys) {
         this.citysDao.update(citys);
@@ -64,20 +64,20 @@ public class CitysService {
     }
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param cityId 主键
-     * @return 是否成功
+     * @param cityId Primary Key
+     * @return boolean
      */
     public boolean deleteById(Integer cityId) {
         return this.citysDao.deleteById(cityId) > 0;
     }
 
     /**
-     * 通过主键删除数据
+     * Delete data through Primary Key
      *
-     * @param cityId 主键
-     * @return 是否成功
+     * @param cityName
+     * @return cityId
      */
     public Integer findCityIdByCityName(String cityName) {
         return this.citysDao.findCityIdByCityName(cityName);
