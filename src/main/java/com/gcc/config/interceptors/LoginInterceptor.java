@@ -45,7 +45,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
 		 * Get call   Get main method
 		 */
 		if(handler instanceof HandlerMethod) {
-			logger.info("打印拦截方法handler ：{} ",handler);
+			logger.info("Print blocking method handler ：{} ",handler);
 			HandlerMethod hm = (HandlerMethod)handler;
 			User user = getUser(request, response);
 
