@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcc.dao.StepsDao">
+
+    <resultMap type="com.gcc.entity.Steps" id="StepsMap">
+        <result property="stepId" column="step_id" jdbcType="INTEGER"/>
+        <result property="stepName" column="step_name" jdbcType="VARCHAR"/>
+        <result property="isPractical" column="is_practical" jdbcType="INTEGER"/>
+        <result property="lineId" column="line_id" jdbcType="INTEGER"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--Query a single-->
+    <select id="queryById" resultMap="StepsMap">
+        select step_id,
+               step_name,
+               is_practical,
+               line_id,
+               created_at,
+               updated_at
+        from railway.steps
+        where step_id = #{stepId}
+    </select>
+
+<!--Query specified row data-->
+    <select id="queryAllByLimit" resultMap="StepsMap">
+        select step_id,
+               step_name,
+               is_practical,
+               line_id,
+               created_at,
+               updated_at
+        from railway.steps limit #{offset}, #{limit}
+    </select>
+
+<!--Query by entity as filter condition-->    <select id="queryAll" resultMap="StepsMap">
+        select
+        step_id, step_name, is_practical, line_id, created_at, updated_at
+        from railway.steps
+        <where>
+            <if test="stepId != null">
+                and step_id = #{stepId}
+            </if>
+            <if test="stepName != null and stepName != ''">
+                and step_name = #{stepName}
+            </if>
+            <if test="isPractical != null">
+                and is_practical = #{isPractical}
+            </if>
+            <if test="lineId != null">
+                and line_id = #{lineId}
+            </if>
+            <if test="createdAt != null">
+                and created_at = #{createdAt}
+            </if>
+            <if test="updatedAt != null">
+                and updated_at = #{updatedAt}
+            </if>
+        </where>
+    </select>
+
+<!--Add all columns-->    <insert id="insert" keyProperty="stepId" useGeneratedKeys="true">
+        insert into railway.steps(step_name, is_practical, line_id, created_at, updated_at)
+        values (#{stepName}, #{isPractical}, #{lineId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="stepId" useGeneratedKeys="true">
+        insert into railway.steps(step_name, is_practical, line_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stepName}, #{entity.isPractical}, #{entity.lineId}, #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="stepId" useGeneratedKeys="true">
+        insert into railway.steps(step_name, is_practical, line_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.stepName}, #{entity.isPractical}, #{entity.lineId}, #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+        on duplicate key update
+        step_name = values(step_name) , is_practical = values(is_practical) , line_id = values(line_id) , created_at =
+        values(created_at) , updated_at = values(updated_at)
+    </insert>
+
+   <!--Modify data through the primary key-->
+    <update id="update">
+        update railway.steps
+        <set>
+            <if test="stepName != null and stepName != ''">
+                step_name = #{stepName},
+            </if>
+            <if test="isPractical != null">
+                is_practical = #{isPractical},
+            </if>
+            <if test="lineId != null">
+                line_id = #{lineId},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt},
+            </if>
+        </set>
+        where step_id = #{stepId}
+    </update>
+
+<!--Delete by primary key-->
+    <delete id="deleteById">
+        delete
+        from railway.steps
+        where step_id = #{stepId}
+    </delete>
+    <delete id="deleteByLineId">
+        delete
+        from railway.steps
+        where line_id = #{lineId}
+    </delete>
+
+    <select id="selectByLineId" resultType="string">
+        select step_name
+        from railway.steps
+        where line_id = #{lineId}
+        order by step_id
+    </select>
+
+    <select id="selectAllSteps" resultType="com.gcc.vo.StepVO">
+        select steps.step_id as stepId, lines.line_name as lineName, steps.step_name as stepName, citys.cn_name as cityName
+        from steps
+                 inner join `lines`
+                            on lines.line_id = steps.line_id
+                 inner join citys
+                            on steps.city_id = citys.city_id
+    </select>
+</mapper>

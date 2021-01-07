@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcc.dao.LinesDao">
+
+    <resultMap type="com.gcc.entity.Lines" id="LinesMap">
+        <result property="lineId" column="line_id" jdbcType="INTEGER"/>
+        <result property="lineName" column="line_name" jdbcType="VARCHAR"/>
+        <result property="cityId" column="city_id" jdbcType="INTEGER"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--Query a single-->
+    <select id="queryById" resultMap="LinesMap">
+        select line_id,
+               line_name,
+               city_id,
+               created_at,
+               updated_at
+        from railway.lines
+        where line_id = #{lineId}
+    </select>
+
+<!--Query specified row data-->
+    <select id="queryAllByLimit" resultMap="LinesMap">
+        select line_id,
+               line_name,
+               city_id,
+               created_at,
+               updated_at
+        from railway.lines limit #{offset}, #{limit}
+    </select>
+
+<!--Query by entity as filter condition-->
+    <select id="queryAll" resultMap="LinesMap">
+        select
+        line_id, line_name, city_id, created_at, updated_at
+        from railway.lines
+        <where>
+            <if test="lineId != null">
+                and line_id = #{lineId}
+            </if>
+            <if test="lineName != null and lineName != ''">
+                and line_name = #{lineName}
+            </if>
+            <if test="cityId != null">
+                and city_id = #{cityId}
+            </if>
+            <if test="createdAt != null">
+                and created_at = #{createdAt}
+            </if>
+            <if test="updatedAt != null">
+                and updated_at = #{updatedAt}
+            </if>
+        </where>
+    </select>
+
+<!--Add all columns-->
+    <insert id="insert" keyProperty="lineId" useGeneratedKeys="true">
+        insert into railway.lines(line_name, city_id, created_at, updated_at)
+        values (#{lineName}, #{cityId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="lineId" useGeneratedKeys="true">
+        insert into railway.lines(line_name, city_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.lineName}, #{entity.cityId}, #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="lineId" useGeneratedKeys="true">
+        insert into railway.lines(line_name, city_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.lineName}, #{entity.cityId}, #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+        on duplicate key update
+        line_name = values(line_name) , city_id = values(city_id) , created_at = values(created_at) , updated_at =
+        values(updated_at)
+    </insert>
+
+   <!--Modify data through the primary key-->
+    <update id="update">
+        update railway.lines
+        <set>
+            <if test="lineName != null and lineName != ''">
+                line_name = #{lineName},
+            </if>
+            <if test="cityId != null">
+                city_id = #{cityId},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt},
+            </if>
+        </set>
+        where line_id = #{lineId}
+    </update>
+
+<!--Delete by primary key-->
+    <delete id="deleteById">
+        delete
+        from railway.lines
+        where line_id = #{lineId}
+    </delete>
+
+    <select id="findLineIdByLineName" resultType="integer">
+        select line_id
+        from railway.lines
+        where line_name = #{lineName}
+    </select>
+    <select id="selectAllLines" resultType="com.gcc.vo.LineVO">
+        select lines.line_id as lineId, lines.line_name as lineName, citys.cn_name as cityName
+        from `lines`
+                 left join `citys`
+                           on lines.city_id = citys.city_id
+    </select>
+
+</mapper>

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcc.dao.CitysDao">
+
+    <resultMap type="com.gcc.entity.Citys" id="CitysMap">
+        <result property="cityId" column="city_id" jdbcType="INTEGER"/>
+        <result property="cnName" column="cn_name" jdbcType="VARCHAR"/>
+        <result property="enName" column="en_name" jdbcType="VARCHAR"/>
+        <result property="code" column="code" jdbcType="INTEGER"/>
+        <result property="pre" column="pre" jdbcType="VARCHAR"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--Query a single-->
+    <select id="queryById" resultMap="CitysMap">
+        select city_id,
+               cn_name,
+               en_name,
+               code,
+               pre,
+               created_at,
+               updated_at
+        from railway.citys
+        where city_id = #{cityId}
+    </select>
+
+<!--Query specified row data-->
+    <select id="queryAllByLimit" resultMap="CitysMap">
+        select city_id,
+               cn_name,
+               en_name,
+               code,
+               pre,
+               created_at,
+               updated_at
+        from railway.citys limit #{offset}, #{limit}
+    </select>
+
+<!--Query by entity as filter condition-->
+    <select id="queryAll" resultMap="CitysMap">
+        select
+        city_id, cn_name, en_name, code, pre, created_at, updated_at
+        from railway.citys
+        <where>
+            <if test="cityId != null">
+                and city_id = #{cityId}
+            </if>
+            <if test="cnName != null and cnName != ''">
+                and cn_name = #{cnName}
+            </if>
+            <if test="enName != null and enName != ''">
+                and en_name = #{enName}
+            </if>
+            <if test="code != null">
+                and code = #{code}
+            </if>
+            <if test="pre != null and pre != ''">
+                and pre = #{pre}
+            </if>
+            <if test="createdAt != null">
+                and created_at = #{createdAt}
+            </if>
+            <if test="updatedAt != null">
+                and updated_at = #{updatedAt}
+            </if>
+        </where>
+    </select>
+
+<!--Add all columns-->    <insert id="insert" keyProperty="cityId" useGeneratedKeys="true">
+        insert into railway.citys(cn_name, en_name, code, pre, created_at, updated_at)
+        values (#{cnName}, #{enName}, #{code}, #{pre}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="cityId" useGeneratedKeys="true">
+        insert into railway.citys(cn_name, en_name, code, pre, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cnName}, #{entity.enName}, #{entity.code}, #{entity.pre}, #{entity.createdAt},
+            #{entity.updatedAt})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="cityId" useGeneratedKeys="true">
+        insert into railway.citys(cn_name, en_name, code, pre, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.cnName}, #{entity.enName}, #{entity.code}, #{entity.pre}, #{entity.createdAt},
+            #{entity.updatedAt})
+        </foreach>
+        on duplicate key update
+        cn_name = values(cn_name) , en_name = values(en_name) , code = values(code) , pre = values(pre) , created_at =
+        values(created_at) , updated_at = values(updated_at)
+    </insert>
+
+   <!--Modify data through the primary key-->
+    <update id="update">
+        update railway.citys
+        <set>
+            <if test="cnName != null and cnName != ''">
+                cn_name = #{cnName},
+            </if>
+            <if test="enName != null and enName != ''">
+                en_name = #{enName},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="pre != null and pre != ''">
+                pre = #{pre},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt},
+            </if>
+        </set>
+        where city_id = #{cityId}
+    </update>
+
+<!--Delete by primary key-->
+    <delete id="deleteById">
+        delete
+        from railway.citys
+        where city_id = #{cityId}
+    </delete>
+
+    <select id="findCityIdByCityName" resultType="Integer">
+        select city_id
+        from railway.citys
+        where cn_name = #{cityName}
+    </select>
+    <select id="selectAllCitys" resultType="com.gcc.entity.Citys">
+        select city_id as cityId, cn_name as cnName, code, pre, en_name as enName,code as code, pre as pre
+        from citys
+    </select>
+</mapper>

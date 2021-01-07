@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gcc.dao.RoutesDao">
+
+    <resultMap type="com.gcc.entity.Routes" id="RoutesMap">
+        <result property="routeId" column="route_id" jdbcType="INTEGER"/>
+        <result property="linesId" column="lines_id" jdbcType="INTEGER"/>
+        <result property="currentStation" column="current_station" jdbcType="VARCHAR"/>
+        <result property="nextStation" column="next_station" jdbcType="VARCHAR"/>
+        <result property="direction" column="direction" jdbcType="VARCHAR"/>
+        <result property="cityId" column="city_id" jdbcType="INTEGER"/>
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+        <result property="updatedAt" column="updated_at" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!--Query a single-->
+    <select id="queryById" resultMap="RoutesMap">
+        select route_id,
+               lines_id,
+               current_station,
+               next_station,
+               direction,
+               city_id,
+               created_at,
+               updated_at
+        from railway.routes
+        where route_id = #{routeId}
+    </select>
+
+    <!--Query specified row data-->
+    <select id="queryAllByLimit" resultMap="RoutesMap">
+        select route_id,
+               lines_id,
+               current_station,
+               next_station,
+               direction,
+               city_id,
+               created_at,
+               updated_at
+        from railway.routes limit #{offset}, #{limit}
+    </select>
+
+    <!--Query by entity as filter condition-->
+    <select id="queryAll" resultMap="RoutesMap">
+        select
+        route_id, lines_id, current_station, next_station, direction, city_id, created_at, updated_at
+        from railway.routes
+        <where>
+            <if test="routeId != null">
+                and route_id = #{routeId}
+            </if>
+            <if test="linesId != null">
+                and lines_id = #{linesId}
+            </if>
+            <if test="currentStation != null and currentStation != ''">
+                and current_station = #{currentStation}
+            </if>
+            <if test="nextStation != null and nextStation != ''">
+                and next_station = #{nextStation}
+            </if>
+            <if test="direction != null and direction != ''">
+                and direction = #{direction}
+            </if>
+            <if test="cityId != null">
+                and city_id = #{cityId}
+            </if>
+            <if test="createdAt != null">
+                and created_at = #{createdAt}
+            </if>
+            <if test="updatedAt != null">
+                and updated_at = #{updatedAt}
+            </if>
+        </where>
+    </select>
+
+    <!--Add all columns-->
+    <insert id="insert" keyProperty="routeId" useGeneratedKeys="true">
+        insert into railway.routes(lines_id, current_station, next_station, direction, city_id, created_at, updated_at)
+        values (#{linesId}, #{currentStation}, #{nextStation}, #{direction}, #{cityId}, #{createdAt}, #{updatedAt})
+    </insert>
+
+    <insert id="insertBatch" keyProperty="routeId" useGeneratedKeys="true">
+        insert into railway.routes(lines_id, current_station, next_station, direction, city_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.linesId}, #{entity.currentStation}, #{entity.nextStation}, #{entity.direction}, #{entity.cityId},
+            #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+    </insert>
+
+    <insert id="insertOrUpdateBatch" keyProperty="routeId" useGeneratedKeys="true">
+        insert into railway.routes(lines_id, current_station, next_station, direction, city_id, created_at, updated_at)
+        values
+        <foreach collection="entities" item="entity" separator=",">
+            (#{entity.linesId}, #{entity.currentStation}, #{entity.nextStation}, #{entity.direction}, #{entity.cityId},
+            #{entity.createdAt}, #{entity.updatedAt})
+        </foreach>
+        on duplicate key update
+        lines_id = values(lines_id) , current_station = values(current_station) , next_station = values(next_station) ,
+        direction = values(direction) , city_id = values(city_id) , created_at = values(created_at) , updated_at =
+        values(updated_at)
+    </insert>
+
+    <!--Modify data through the primary key-->
+    <update id="update">
+        update railway.routes
+        <set>
+            <if test="linesId != null">
+                lines_id = #{linesId},
+            </if>
+            <if test="currentStation != null and currentStation != ''">
+                current_station = #{currentStation},
+            </if>
+            <if test="nextStation != null and nextStation != ''">
+                next_station = #{nextStation},
+            </if>
+            <if test="direction != null and direction != ''">
+                direction = #{direction},
+            </if>
+            <if test="cityId != null">
+                city_id = #{cityId},
+            </if>
+            <if test="createdAt != null">
+                created_at = #{createdAt},
+            </if>
+            <if test="updatedAt != null">
+                updated_at = #{updatedAt},
+            </if>
+        </set>
+        where route_id = #{routeId}
+    </update>
+
+    <!--Delete by primary key-->
+    <delete id="deleteById">
+        delete
+        from railway.routes
+        where route_id = #{routeId}
+    </delete>
+
+    <delete id="deleteByLineId">
+        delete
+        from railway.routes
+        where lines_id = #{linesId}
+    </delete>
+
+    <select id="getRoute" resultType="com.gcc.vo.TransferVO">
+        WITH RECURSIVE paths (start_station, stop_station, stops, path) AS (
+            SELECT current_station, next_station, 1, CAST(CONCAT(current_station, ',', next_station) AS CHAR(1000))
+            FROM routes
+            WHERE current_station = #{startStation}
+            UNION ALL
+            SELECT p.start_station, e.next_station, stops + 1, CONCAT_WS(',', p.path, e.next_station)
+            FROM paths p
+                     JOIN routes e
+                          ON p.stop_station = e.current_station AND (INSTR(p.path, e.next_station) = 0)
+        )
+        SELECT *
+        FROM paths
+        WHERE stop_station = #{stopStation};
+    </select>
+</mapper>

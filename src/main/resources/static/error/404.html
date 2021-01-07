@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!--    <meta http-equiv="Refresh" content="5;url=https://www.toutiao.com/"/>-->
+    <title>404 ERROR</title>
+    <script type="text/javascript">
+        window.onload = function () {
+            var i = 4;
+            var tim = document.getElementById("timers");
+            var timer = setInterval(function () {
+                if (i == -1) {
+                    //The second way to jump
+                    window.location.href = "http://localhost:8081/swagger-ui.html";
+                    clearInterval(timer);
+                } else {
+                    tim.innerHTML = i;
+                    --i;
+                }
+            }, 1000);
+        }
+    </script>
+</head>
+<body>
+404 ERROR.
+<p>You will <span id="timers" style="color: #ff0000; font-size: 5rem">5</span> Jump to the homepage within seconds.</p>
+<p><a href="http://localhost:8081/swagger-ui.html">Home</a></p>
+<p>If you still see this message after more than 5 seconds, please click the homepage link above.</p>
+</body>
+</html>
