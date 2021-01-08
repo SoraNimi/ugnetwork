@@ -31,11 +31,9 @@ Version : 9.0
 
 
 
-### Citys-controller
+## Citys-controller
 
-
-
-#### deleteCitys
+### **deleteCitys**
 
 ```java
 DELETE /citys/delete
@@ -94,7 +92,8 @@ json :
 true
 ```
 
-#### insertCitys
+### **insertCitys**
+
 ```
 POST /citys/insert
 ```
@@ -165,9 +164,7 @@ json :
 }
 ```
 
-
-
-#### select
+### **select**
 
 ```
 POST /citys/select
@@ -239,9 +236,7 @@ json :
 } ]
 ```
 
-
-
-#### selectAllCitys
+### **selectAllCitys**
 
 ```
 GET /citys/selectAllCitys
@@ -292,9 +287,7 @@ json :
 } ]
 ```
 
-
-
-#### updateCitys
+### updateCitys
 
 ```
 PUT /citys/update
@@ -366,13 +359,11 @@ json :
 }
 ```
 
----
 
 
+## Lines-controller
 
-### Lines-controller
-
-#### deleteLine
+### **updateCitys**
 
 ```
 DELETE /lines/DeleteLine
@@ -433,7 +424,7 @@ true
 
 
 
-#### insertLine
+### **insertLine**
 
 ```
 POST /lines/insertLine
@@ -501,7 +492,8 @@ json :
 }
 ```
 
-#### select
+### **select**
+
 ```
 PUT /lines/select
 ```
@@ -568,9 +560,7 @@ json :
 } ]
 ```
 
-
-
-#### selectAllLines
+### **selectAllLines**
 
 ```
 GET /lines/selectAllLines
@@ -686,9 +676,9 @@ json :
 
 
 
-### Login-controller
+## Login-controller
 
-#### doLogin
+### **doLogin**
 
 ```
 POST /login/do_login
@@ -818,10 +808,10 @@ json :
 
 
 
-### Routes-controller
+## Routes-controller
 
+### **deleteRoute**
 
-#### deleteRoute
 ```
 POST /routes/deleteRoute
 ```
@@ -878,9 +868,7 @@ json :
 true
 ```
 
-
-
-#### getRoute
+### **getRoute**
 
 ```
 GET /routes/getRoute
@@ -946,9 +934,7 @@ json :
 } ]
 ```
 
-
-
-#### insertRoute
+### **insertRoute**
 
 ```
 POST /routes/insertRoute
@@ -1021,10 +1007,12 @@ json :
 } ]
 ```
 
-### Steps-controller
-Steps Controller
 
-#### deleteSteps
+
+## Steps-controller
+
+### **deleteSteps**
+
 ```
 DELETE /steps/delete
 ```
@@ -1034,7 +1022,7 @@ DELETE /steps/delete
 
 |Type|Name|Description|Type|
 |---|---|---|---|
-|**Query**|**stepId**  <br>*Required*|stepId|integer (int32)|
+|**Query**|**stepId** *Required*|stepId|integer (int32)|
 
 
 ##### Response
@@ -1082,9 +1070,7 @@ json :
 true
 ```
 
-
-
-#### insertSteps
+### **insertSteps**
 
 ```
 POST /steps/insert
@@ -1138,9 +1124,7 @@ json :
 }
 ```
 
-
-
-#### selectSteps
+### **selectSteps**
 
 ```
 POST /steps/select
@@ -1211,7 +1195,8 @@ json :
 } ]
 ```
 
-#### selectAllSteps
+### **selectAllSteps**
+
 ```
 GET /steps/selectAllSteps
 ```
@@ -1258,7 +1243,8 @@ json :
 } ]
 ```
 
-#### updateSteps
+### **updateSteps**
+
 ```
 PUT /steps/update
 ```
@@ -1340,8 +1326,6 @@ json :
 |**enName** *Optional*|**Example** : `"string"`|string|
 |**pre**  Optional|**Example** : `"string"`|string|
 
-
-
 ### Citys
 
 |Name|Description|Type|
@@ -1379,8 +1363,6 @@ json :
 |**mobile**  *Optional*|**Example** : `"string"`|string|
 |**password**  *Optional*|**Example** : `"string"`|string|
 
-
-
 ### Result<boolean>
 
 |Name|Description|Type|
@@ -1388,8 +1370,6 @@ json :
 |**code**  *Optional*|**Example** : `0`|integer (int32)|
 |**data**  *Optional*|**Example** : `true`|boolean|
 |**msg**  *Optional*|**Example** : `"string"`|string|
-
-
 
 ### Routes
 
@@ -1415,8 +1395,6 @@ json :
 |**direction**  *Optional*|**Example** : `"string"`|string|
 |**lineName**  *Optional*|**Example** : `"string"`|string|
 |**next_station**  *Optional*|**Example** : `"string"`|string|
-
-
 
 ### StepVO
 

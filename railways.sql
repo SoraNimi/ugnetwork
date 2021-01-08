@@ -1183,15 +1183,15 @@ VALUES (80, 391, '鼓楼大街', '鼓楼大街', '内环', 1, '2020-12-06 23:31:
 
 create table users
 (
-    id              bigint auto_increment comment ' 用户ID，手机号码 '
+    id              bigint auto_increment comment ' User ID，Mobie number '
         primary key,
     nickname        varchar(255)  not null,
-    password        varchar(32)   null comment ' MD5(MD5(pass明文+固定salt) + salt)',
+    password        varchar(32)   null comment ' MD5(MD5(pass + salt) + salt)',
     salt            varchar(10)   null,
-    head            varchar(128)  null comment ' 头像，云存储的ID ',
-    register_date   datetime      null comment ' 注册时间 ',
-    last_login_date datetime      null comment ' 上蔟登录时间 ',
-    login_count     int default 0 null comment ' 登录次数 '
+    head            varchar(128)  null comment ' ',
+    register_date   datetime      null comment '  ',
+    last_login_date datetime      null comment '  ',
+    login_count     int default 0 null comment '  '
 );
 
 INSERT INTO users (id, nickname, password, salt, head, register_date, last_login_date, login_count)
